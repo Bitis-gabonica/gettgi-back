@@ -35,7 +35,7 @@ public record AnimalUpdateRequestDto(
         String nom,
 
         @Valid
-        @Size(max = 100)
+        @Size(max = 50)
         List<VaccinCreateRequestDto> vaccins,
 
         @Valid

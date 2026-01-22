@@ -59,7 +59,7 @@ services:
       SPRING_JPA_PROPERTIES_HIBERNATE_JDBC_TIME_ZONE: ${SPRING_JPA_PROPERTIES_HIBERNATE_JDBC_TIME_ZONE}
       
       # Spring Profile Configuration
-      # Utilise 'dev' par dÃ©faut si SPRING_PROFILES_ACTIVE n'est pas dÃ©fini
+      # Utilise 'dev' par défaut si SPRING_PROFILES_ACTIVE n'est pas défini
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
       
       # Server Configuration

@@ -38,7 +38,7 @@ public record AnimalCreateRequestDto(
         String nom,
 
         @Valid
-        @Size(max = 100) // ajuste si besoin
+        @Size(max = 50)
         List<VaccinCreateRequestDto> vaccins,
 
         // optionnel: création du device au moment de l’ajout

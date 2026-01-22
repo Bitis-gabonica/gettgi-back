@@ -10,7 +10,7 @@ WORKDIR /app
 COPY pom.xml .
 COPY .mvn/settings.xml /root/.m2/settings.xml
 
-# TÃ©lÃ©charger les dÃ©pendances (cache layer) avec retry et timeout augmentÃ©s
+# Télécharger les dépendances (cache layer) avec retry et timeout augmentés
 RUN mvn -U dependency:go-offline -B -s /root/.m2/settings.xml || \
     (sleep 10 && mvn -U dependency:go-offline -B -s /root/.m2/settings.xml) || \
     (sleep 10 && mvn -U dependency:go-offline -B -s /root/.m2/settings.xml)
@@ -28,16 +28,16 @@ FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
-# CrÃ©er un utilisateur non-root pour la sÃ©curitÃ©
+# Créer un utilisateur non-root pour la sécurité
 RUN addgroup -S spring && adduser -S spring -G spring
 
 # Copier le JAR depuis le stage de build
 COPY --from=build /app/target/*.jar app.jar
 
-# Changer le propriÃ©taire
+# Changer le propriétaire
 RUN chown spring:spring app.jar
 
-# Passer Ã  l'utilisateur non-root
+# Passer à l'utilisateur non-root
 USER spring:spring
 
 # Exposer le port
@@ -47,5 +47,5 @@ EXPOSE 2000
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:2000/actuator/health || exit 1
 
-# Commande de dÃ©marrage
+# Commande de démarrage
 ENTRYPOINT ["java", "-jar", "app.jar"]

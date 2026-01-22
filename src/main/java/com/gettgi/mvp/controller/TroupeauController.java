@@ -4,6 +4,7 @@ import com.gettgi.mvp.dto.response.TroupeauDetailResponseDto;
 import com.gettgi.mvp.dto.response.TroupeauResponseDto;
 import com.gettgi.mvp.dto.request.TroupeauCreateRequestDto;
 import com.gettgi.mvp.dto.request.TroupeauUpdateRequestDto;
+import com.gettgi.mvp.controller.validation.PaginationValidator;
 import com.gettgi.mvp.service.TroupeauService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +31,9 @@ public class TroupeauController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @AuthenticationPrincipal UserDetails principal) {
+        int[] validated = PaginationValidator.validateAndNormalize(page, size);
         String telephone = principal.getUsername();
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(validated[0], validated[1]);
         Page<TroupeauResponseDto> items = troupeauService.FindAllByUserTelephone(pageable, telephone);
         return ResponseEntity.ok(items);
     }

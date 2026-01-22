@@ -6,6 +6,7 @@ import com.gettgi.mvp.dto.response.AnimalCreateResponseDto;
 import com.gettgi.mvp.dto.response.FindAllAnimalResponseDto;
 import com.gettgi.mvp.dto.response.AnimalDetailResponseDto;
 import com.gettgi.mvp.dto.request.AnimalUpdateRequestDto;
+import com.gettgi.mvp.controller.validation.PaginationValidator;
 import com.gettgi.mvp.dto.request.AnimalTroupeauPatchRequestDto;
 import com.gettgi.mvp.service.AnimalService;
 import lombok.RequiredArgsConstructor;
@@ -33,8 +34,9 @@ public class AnimalController {
             @RequestParam(defaultValue = "10") Integer size,
             @AuthenticationPrincipal UserDetails principal) {
 
+        int[] validated = PaginationValidator.validateAndNormalize(page, size);
         String telephone = principal.getUsername();
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(validated[0], validated[1]);
 
         Page<FindAllAnimalResponseDto> animals = animalService.FindAllAnimalsByUserTelephone(pageable, telephone);
 
@@ -86,7 +88,7 @@ public class AnimalController {
     @PatchMapping("/{animalId}/troupeau")
     public ResponseEntity<AnimalCreateResponseDto> patchAnimalTroupeau(
             @PathVariable UUID animalId,
-            @RequestBody AnimalTroupeauPatchRequestDto dto,
+            @Valid @RequestBody AnimalTroupeauPatchRequestDto dto,
             @AuthenticationPrincipal UserDetails principal) {
         String telephone = principal.getUsername();
         var updated = animalService.PatchAnimalTroupeau(animalId, dto.troupeauId(), telephone);

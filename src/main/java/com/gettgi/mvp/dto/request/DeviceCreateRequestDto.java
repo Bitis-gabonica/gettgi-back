@@ -16,6 +16,7 @@ public record DeviceCreateRequestDto(
         @Size(max = 32)
         String firmwareVersion,
 
+        @PastOrPresent
         Instant activationDate,
 
         // facultatif à la création (peut être null)

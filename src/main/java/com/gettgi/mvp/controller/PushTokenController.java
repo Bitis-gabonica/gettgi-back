@@ -7,6 +7,8 @@ import com.gettgi.mvp.entity.enums.PushPlatform;
 import com.gettgi.mvp.repository.PushTokenRepository;
 import com.gettgi.mvp.repository.UserRepository;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.validation.annotation.Validated;
 
 @RestController
 @RequestMapping("/api/v1/push/tokens")
 @RequiredArgsConstructor
+@Validated
 public class PushTokenController {
 
     private final UserRepository userRepository;
@@ -53,7 +57,7 @@ public class PushTokenController {
 
     @DeleteMapping
     public ResponseEntity<Void> deleteToken(
-            @RequestParam("token") String token,
+            @RequestParam("token") @NotBlank @Size(max = 512) String token,
             @AuthenticationPrincipal UserDetails principal
     ) {
         if (principal == null) {
@@ -64,10 +68,7 @@ public class PushTokenController {
         User user = userRepository.findByTelephone(telephone)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        String normalized = token != null ? token.trim() : "";
-        if (normalized.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "token is required");
-        }
+        String normalized = token.trim();
 
         pushTokenRepository.deleteByUser_IdAndToken(user.getId(), normalized);
         return ResponseEntity.noContent().build();
