@@ -1,0 +1,123 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgis/postgis:14-3.3
+    container_name: gettgi-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - gettgi-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: gettgi-redis
+    ports:
+      - "${REDIS_PORT}:6379"
+    command: >
+      sh -c "
+      if [ -n \"$$REDIS_PASSWORD\" ]; then
+        redis-server --appendonly yes --requirepass $$REDIS_PASSWORD
+      else
+        redis-server --appendonly yes
+      fi
+      "
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - gettgi-network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gettgi-backend
+    environment:
+      # Database Configuration (Spring Boot format)
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
+      SPRING_JPA_PROPERTIES_HIBERNATE_JDBC_TIME_ZONE: ${SPRING_JPA_PROPERTIES_HIBERNATE_JDBC_TIME_ZONE}
+      
+      # Server Configuration
+      SERVER_PORT: ${SERVER_PORT}
+      
+      # JWT Configuration
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION_TIME: ${JWT_EXPIRATION_TIME}
+      JWT_ISSUER: ${JWT_ISSUER}
+      
+      # Redis Configuration
+      REDIS_HOST: redis
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_TIMEOUT: ${REDIS_TIMEOUT}
+      
+      # Push Notifications (FCM)
+      PUSH_FCM_ENABLED: ${PUSH_FCM_ENABLED}
+      PUSH_FCM_DRY_RUN: ${PUSH_FCM_DRY_RUN}
+      PUSH_FCM_CREDENTIALS_PATH: ${PUSH_FCM_CREDENTIALS_PATH}
+      
+      # Telemetry - Offline Monitoring
+      TELEMETRY_OFFLINE_THRESHOLD: ${TELEMETRY_OFFLINE_THRESHOLD}
+      TELEMETRY_OFFLINE_CHECK_INTERVAL: ${TELEMETRY_OFFLINE_CHECK_INTERVAL}
+      
+      # Telemetry - Alerts
+      TELEMETRY_PRESSURE_TAMPERING_THRESHOLD: ${TELEMETRY_PRESSURE_TAMPERING_THRESHOLD}
+      TELEMETRY_PRESSURE_CUT_THRESHOLD: ${TELEMETRY_PRESSURE_CUT_THRESHOLD}
+      TELEMETRY_SPEED_SUSPECT_THRESHOLD_MPS: ${TELEMETRY_SPEED_SUSPECT_THRESHOLD_MPS}
+      TELEMETRY_BATTERY_LOW_THRESHOLD: ${TELEMETRY_BATTERY_LOW_THRESHOLD}
+      TELEMETRY_BATTERY_RECOVERY_THRESHOLD: ${TELEMETRY_BATTERY_RECOVERY_THRESHOLD}
+      
+      # Telemetry - MQTT
+      TELEMETRY_MQTT_BROKER: ${TELEMETRY_MQTT_BROKER}
+      TELEMETRY_MQTT_CLIENT: ${TELEMETRY_MQTT_CLIENT}
+      TELEMETRY_MQTT_USERNAME: ${TELEMETRY_MQTT_USERNAME}
+      TELEMETRY_MQTT_PASSWORD: ${TELEMETRY_MQTT_PASSWORD}
+      TELEMETRY_MQTT_TOPIC: ${TELEMETRY_MQTT_TOPIC}
+      TELEMETRY_MQTT_QOS: ${TELEMETRY_MQTT_QOS}
+      TELEMETRY_MQTT_COMPLETION_TIMEOUT_MS: ${TELEMETRY_MQTT_COMPLETION_TIMEOUT_MS}
+      TELEMETRY_MQTT_AUTO_STARTUP: ${TELEMETRY_MQTT_AUTO_STARTUP}
+      
+      # Telemetry - Persistence
+      TELEMETRY_PERSISTENCE_FLUSH_INTERVAL: ${TELEMETRY_PERSISTENCE_FLUSH_INTERVAL}
+      TELEMETRY_PERSISTENCE_MAX_ENTRIES: ${TELEMETRY_PERSISTENCE_MAX_ENTRIES}
+    ports:
+      - "${SERVER_PORT}:2000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - gettgi-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  gettgi-network:
+    driver: bridge

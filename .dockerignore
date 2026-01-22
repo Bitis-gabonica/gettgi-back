@@ -1,0 +1,54 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+*.md
+
+# IDE
+.idea
+.vscode
+*.iml
+*.iws
+*.ipr
+
+# Build artifacts
+target/
+build/
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+spring-boot.out.log
+spring-boot.err.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Docker
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# Maven wrapper (on utilise l'image Maven)
+.mvn/wrapper/maven-wrapper.jar
+mvnw
+mvnw.cmd
+
+# Test files
+src/test/
+
+# Telemetry test files
+telemetry.json
+telemetry1.json
+
+# OS
+.DS_Store
+Thumbs.db

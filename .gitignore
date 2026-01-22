@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Environment files ###
+.env
+.env.local
+.env.*.local
+
+### Logs ###
+*.log
+*.log.*
+spring-boot.out.log
+spring-boot.err.log
