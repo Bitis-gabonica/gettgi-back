@@ -1,7 +1,5 @@
--- Index GiST nécessaires aux performances des requêtes spatiales.
-CREATE INDEX IF NOT EXISTS idx_users_position_gist   ON users    USING GIST (position);
-CREATE INDEX IF NOT EXISTS idx_telemetry_position_gist ON telemetry USING GIST (position);
-CREATE INDEX IF NOT EXISTS idx_geofence_zone_gist    ON geofence USING GIST (zone);
+-- Activer PostGIS pour les types GEOMETRY utilisés plus bas.
+CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE TABLE alerte
 (
     id          UUID                        NOT NULL,
@@ -173,6 +171,11 @@ CREATE UNIQUE INDEX idx_user_email ON users (email);
 CREATE UNIQUE INDEX idx_user_telephone ON users (telephone);
 
 CREATE UNIQUE INDEX idx_vet_telephone ON veterinaire (telephone);
+
+-- Index spatiaux créés après la définition des tables.
+CREATE INDEX IF NOT EXISTS idx_users_position_gist     ON users     USING GIST (position);
+CREATE INDEX IF NOT EXISTS idx_telemetry_position_gist ON telemetry USING GIST (position);
+CREATE INDEX IF NOT EXISTS idx_geofence_zone_gist      ON geofence  USING GIST (zone);
 
 ALTER TABLE animal
     ADD CONSTRAINT FK_ANIMAL_ON_TROUPEAU FOREIGN KEY (troupeau_id) REFERENCES troupeau (id);

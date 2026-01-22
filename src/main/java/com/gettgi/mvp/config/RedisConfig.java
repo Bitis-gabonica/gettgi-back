@@ -15,10 +15,11 @@ import org.springframework.util.StringUtils;
 @Configuration
 public class RedisConfig {
 
-    @Value("${spring.data.redis.host}")
+    // Defaults avoid startup failure if env vars are missing locally
+    @Value("${spring.data.redis.host:localhost}")
     private String redisHost;
 
-    @Value("${spring.data.redis.port}")
+    @Value("${spring.data.redis.port:6379}")
     private int redisPort;
 
     @Value("${spring.data.redis.password:}")

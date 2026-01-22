@@ -1,21 +1,27 @@
 # Multi-stage build pour optimiser la taille de l'image
 FROM maven:3.9-eclipse-temurin-17 AS build
 
+# Configure Maven for better network handling
+ENV MAVEN_OPTS="-Dmaven.wagon.http.retryHandler.class=standard -Dmaven.wagon.http.retryHandler.count=8 -Dmaven.wagon.http.retryHandler.requestSentEnabled=true -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=300 -Xmx1024m"
+
 WORKDIR /app
 
 # Copier les fichiers de configuration Maven
 COPY pom.xml .
-COPY mvnw .
-COPY .mvn .mvn
+COPY .mvn/settings.xml /root/.m2/settings.xml
 
-# Télécharger les dépendances (cache layer)
-RUN mvn dependency:go-offline -B
+# Télécharger les dépendances (cache layer) avec retry et timeout augmentés
+RUN mvn -U dependency:go-offline -B -s /root/.m2/settings.xml || \
+    (sleep 10 && mvn -U dependency:go-offline -B -s /root/.m2/settings.xml) || \
+    (sleep 10 && mvn -U dependency:go-offline -B -s /root/.m2/settings.xml)
 
 # Copier le code source
 COPY src ./src
 
-# Build de l'application
-RUN mvn clean package -DskipTests
+# Build de l'application avec retry
+RUN mvn -U clean package -DskipTests -s /root/.m2/settings.xml || \
+    (sleep 10 && mvn -U clean package -DskipTests -s /root/.m2/settings.xml) || \
+    (sleep 10 && mvn -U clean package -DskipTests -s /root/.m2/settings.xml)
 
 # Stage de production
 FROM eclipse-temurin:17-jre-alpine
