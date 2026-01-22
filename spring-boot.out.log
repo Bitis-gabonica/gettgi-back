@@ -1,0 +1,116 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------------< com.gettgi:mvp >---------------------------
+[INFO] Building mvp 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.5:run (default-cli) > test-compile @ mvp >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ mvp ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ mvp ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ mvp ---
+[INFO] skip non existing resourceDirectory C:\Users\theab\GettGi_Front\mvp - Copy\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ mvp ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.5.5:run (default-cli) < test-compile @ mvp <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.5:run (default-cli) @ mvp ---
+[INFO] Attaching agents: []
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.5)
+
+2026-01-11T20:39:03.460Z  INFO 40900 --- [           main] com.gettgi.mvp.MvpApplication            : Starting MvpApplication using Java 17.0.10 with PID 40900 (C:\Users\theab\GettGi_Front\mvp - Copy\target\classes started by theab in C:\Users\theab\GettGi_Front\mvp - Copy)
+2026-01-11T20:39:03.463Z  INFO 40900 --- [           main] com.gettgi.mvp.MvpApplication            : No active profile set, falling back to 1 default profile: "default"
+2026-01-11T20:39:04.370Z  INFO 40900 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-11T20:39:04.514Z  INFO 40900 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 128 ms. Found 9 JPA repository interfaces.
+2026-01-11T20:39:04.582Z  INFO 40900 --- [           main] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2026-01-11T20:39:04.589Z  INFO 40900 --- [           main] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2026-01-11T20:39:05.152Z  INFO 40900 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 2000 (http)
+2026-01-11T20:39:05.165Z  INFO 40900 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-11T20:39:05.166Z  INFO 40900 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-01-11T20:39:05.226Z  INFO 40900 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-11T20:39:05.228Z  INFO 40900 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1727 ms
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+2026-01-11T20:39:05.415Z  INFO 40900 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-11T20:39:05.455Z  INFO 40900 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2026-01-11T20:39:05.465Z  INFO 40900 --- [           main] o.h.spatial.integration.SpatialService   : HHH80000001: hibernate-spatial integration enabled : true
+2026-01-11T20:39:05.485Z  INFO 40900 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-11T20:39:05.570Z  INFO 40900 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-11T20:39:05.713Z  INFO 40900 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@77fceac6
+2026-01-11T20:39:05.714Z  INFO 40900 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-11T20:39:05.771Z  INFO 40900 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-11T20:39:05.780Z  INFO 40900 --- [           main] org.hibernate.spatial                    : HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.postgis.PostgisDialectContributor
+2026-01-11T20:39:05.930Z  INFO 40900 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-11T20:39:05.947Z  INFO 40900 --- [           main] org.hibernate.spatial                    : HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.postgis.PostgisDialectContributor
+2026-01-11T20:39:06.342Z  INFO 40900 --- [           main] org.hibernate.spatial                    : HHH80000004: hibernate-spatial adding function contributions from : org.hibernate.spatial.dialect.postgis.PostgisDialectContributor
+2026-01-11T20:39:06.921Z  INFO 40900 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-11T20:39:07.045Z  INFO 40900 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-11T20:39:07.308Z  INFO 40900 --- [           main] com.gettgi.mvp.config.JwtUtils           : Initialized JWT key ring with 1 keys. Active kid=k0
+2026-01-11T20:39:07.456Z  INFO 40900 --- [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-11T20:39:08.025Z  WARN 40900 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-11T20:39:08.060Z  INFO 40900 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-01-11T20:39:08.370Z  INFO 40900 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-01-11T20:39:08.843Z  INFO 40900 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-01-11T20:39:08.846Z  INFO 40900 --- [           main] o.s.i.channel.PublishSubscribeChannel    : Channel 'application.errorChannel' has 1 subscriber(s).
+2026-01-11T20:39:08.847Z  INFO 40900 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2026-01-11T20:39:08.847Z  INFO 40900 --- [           main] o.s.integration.channel.DirectChannel    : Channel 'application.telemetryInboundChannel' has 1 subscriber(s).
+2026-01-11T20:39:08.847Z  INFO 40900 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : started bean 'telemetryMqttInboundFlow.org.springframework.integration.config.ConsumerEndpointFactoryBean#1'; from source: 'com.gettgi.mvp.config.TelemetryMqttConfiguration.telemetryMqttInboundFlow(org.springframework.integration.mqtt.core.MqttPahoClientFactory,com.gettgi.mvp.telemetry.TelemetryMessageHandler,org.springframework.messaging.MessageChannel)'
+2026-01-11T20:39:08.848Z  INFO 40900 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : Adding {bridge} as a subscriber to the 'telemetryMqttInboundFlow.channel#0' channel
+2026-01-11T20:39:08.848Z  INFO 40900 --- [           main] o.s.integration.channel.DirectChannel    : Channel 'application.telemetryMqttInboundFlow.channel#0' has 1 subscriber(s).
+2026-01-11T20:39:08.848Z  INFO 40900 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : started bean 'telemetryMqttInboundFlow.org.springframework.integration.config.ConsumerEndpointFactoryBean#0'; from source: 'com.gettgi.mvp.config.TelemetryMqttConfiguration.telemetryMqttInboundFlow(org.springframework.integration.mqtt.core.MqttPahoClientFactory,com.gettgi.mvp.telemetry.TelemetryMessageHandler,org.springframework.messaging.MessageChannel)'
+2026-01-11T20:39:08.849Z  INFO 40900 --- [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-01-11T20:39:08.849Z  INFO 40900 --- [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3f096fa1]]
+2026-01-11T20:39:08.851Z  INFO 40900 --- [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-01-11T20:39:09.191Z  INFO 40900 --- [           main] .m.i.MqttPahoMessageDrivenChannelAdapter : started bean 'telemetryMqttInboundAdapter'; from source: 'com.gettgi.mvp.config.TelemetryMqttConfiguration.telemetryMqttInboundFlow(org.springframework.integration.mqtt.core.MqttPahoClientFactory,com.gettgi.mvp.telemetry.TelemetryMessageHandler,org.springframework.messaging.MessageChannel)'
+2026-01-11T20:39:09.262Z  INFO 40900 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 2000 (http) with context path '/'
+2026-01-11T20:39:09.275Z  INFO 40900 --- [           main] com.gettgi.mvp.MvpApplication            : Started MvpApplication in 6.161 seconds (process running for 6.451)
+Mock data seeded:
+  - Users: 221770000001 / password, 221770000002 / password
+  - Animals: 10 per user (some in troupeau)
+  - Devices+telemetry: 1 device + 1 point per animal (to make the map work in dev)
+
+2026-01-11T20:39:17.332Z  INFO 40900 --- [nio-2000-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-11T20:39:17.333Z  INFO 40900 --- [nio-2000-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-11T20:39:17.334Z  INFO 40900 --- [nio-2000-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-01-11T20:39:17.480Z  INFO 40900 --- [nio-2000-exec-2] c.gettgi.mvp.controller.AuthController   : Login succeeded (phone-only) for telephone=221770000001 ip=127.0.0.1
+2026-01-11T20:39:17.607Z  WARN 40900 --- [nio-2000-exec-3] ration$PageModule$WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  49.098 s
+[INFO] Finished at: 2026-01-11T20:39:46Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.5:run (default-cli) on project mvp: Process terminated with exit code: -1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

@@ -1,0 +1,59 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/GettGi
+    username: postgres
+    password: root
+  jpa:
+    properties:
+      # SUPPRIMER cette ligne si tu l?as mise :
+      # hibernate.dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
+      hibernate.jdbc.time_zone: UTC
+    hibernate:
+      ddl-auto: create-drop
+server:
+  port: 2000
+
+app:
+  security:
+    # Pour Flutter web (localhost random port) et dev local.
+    cors-allowed-origins:
+      - "http://localhost:*"
+      - "http://127.0.0.1:*"
+      - "null"
+    websocket-allowed-origins:
+      - "http://localhost:*"
+      - "http://127.0.0.1:*"
+      - "null"
+  jwt:
+    # Clé BASE64 (256+ bits). Exemple par défaut de dev, remplace en prod via JWT_SECRET
+    secret-key: ${JWT_SECRET:c2VjdXJlLXNlY3JldC1rZXktMzJieXRlcy0xMjM0NTY3OA==}
+    expiration-time: 900000   # 15 min en millisecondes
+    issuer: gettgi-mvp
+  push:
+    fcm:
+      enabled: ${PUSH_FCM_ENABLED:false}
+      dry-run: ${PUSH_FCM_DRY_RUN:false}
+      credentials-path: ${PUSH_FCM_CREDENTIALS_PATH:}
+  telemetry:
+    offline:
+      threshold: ${TELEMETRY_OFFLINE_THRESHOLD:PT5M}
+      check-interval: ${TELEMETRY_OFFLINE_CHECK_INTERVAL:PT1M}
+    alerts:
+      pressure-tampering-threshold: ${TELEMETRY_PRESSURE_TAMPERING_THRESHOLD:0.6}
+      pressure-cut-threshold: ${TELEMETRY_PRESSURE_CUT_THRESHOLD:0.2}
+      speed-suspect-threshold-mps: ${TELEMETRY_SPEED_SUSPECT_THRESHOLD_MPS:18.0}
+      battery-low-threshold: ${TELEMETRY_BATTERY_LOW_THRESHOLD:20}
+      battery-recovery-threshold: ${TELEMETRY_BATTERY_RECOVERY_THRESHOLD:25}
+    mqtt:
+      broker-url: ${TELEMETRY_MQTT_BROKER:tcp://localhost:1883}
+      client-id: ${TELEMETRY_MQTT_CLIENT:mvp-telemetry-ingestor}
+      username: ${TELEMETRY_MQTT_USERNAME:}
+      password: ${TELEMETRY_MQTT_PASSWORD:}
+      topics:
+        - ${TELEMETRY_MQTT_TOPIC:collars/+/telemetry}
+      qos: ${TELEMETRY_MQTT_QOS:1}
+      completion-timeout: ${TELEMETRY_MQTT_COMPLETION_TIMEOUT_MS:5000}
+      auto-startup: ${TELEMETRY_MQTT_AUTO_STARTUP:true}
+    persistence:
+      flush-interval: ${TELEMETRY_PERSISTENCE_FLUSH_INTERVAL:PT30S}
+      max-entries: ${TELEMETRY_PERSISTENCE_MAX_ENTRIES:5000}

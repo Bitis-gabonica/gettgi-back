@@ -1,0 +1,14 @@
+{
+  "deviceImei": "123456789012345",
+  "timestamp": "2025-10-20T21:33:00Z",
+  "position": { "latitude": 14.7200, "longitude": -17.4600 },
+  "speed": 20.5,
+  "accelX": 0.20,
+  "accelY": 0.25,
+  "accelZ": 0.18,
+  "pressure": 1.01,
+  "batteryLevel": 77,
+  "gsmSignal": 4,
+  "statusCollar": "ACTIF",
+  "transmissionStatus": "ENVOYE"
+}
