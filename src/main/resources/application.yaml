@@ -77,10 +77,10 @@ spring:
       # Les modifications des entités JPA sont appliquées automatiquement
       ddl-auto: update
     # Afficher les requêtes SQL générées dans les logs (utile pour le debug)
-    show-sql: true
+    show-sql: false
     properties:
       # Formater les requêtes SQL pour une meilleure lisibilité
-      hibernate.format_sql: true
+      hibernate.format_sql: false
 
 ---
 # Configuration pour le profil de production
