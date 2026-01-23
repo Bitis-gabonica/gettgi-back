@@ -45,9 +45,15 @@ SPRING_PROFILES_ACTIVE=dev
 SPRING_PROFILES_ACTIVE=prod
 ```
 
+### Activation PostGIS
+
+L'extension PostGIS est activée automatiquement au démarrage de l'application par le composant `PostGisExtensionInitializer`, 
+AVANT qu'Hibernate ne crée le schéma. Cela garantit que les types `geometry` sont disponibles lors de la création des tables.
+
 ### Index PostGIS GiST
 
-Les index GiST PostGIS (nécessaires pour les requêtes spatiales) sont créés automatiquement par le composant `PostGisIndexInitializer` :
+Les index GiST PostGIS (nécessaires pour les requêtes spatiales) sont créés automatiquement par le composant `PostGisIndexInitializer` 
+après la création du schéma :
 
 - `idx_users_position_gist` sur `users.position`
 - `idx_telemetry_position_gist` sur `telemetry.position`
@@ -156,6 +162,7 @@ Pour le premier déploiement en production, vous pouvez temporairement utiliser 
 ```
 src/main/java/com/gettgi/mvp/
 ├── config/              # Configurations Spring
+│   ├── PostGisExtensionInitializer.java  # Activation de l'extension PostGIS
 │   ├── PostGisIndexInitializer.java  # Création automatique des index GiST
 │   └── ...
 ├── entity/             # Entités JPA (définissent le schéma)
@@ -193,9 +200,12 @@ Voir `env.example` pour la liste complète des variables.
 
 ## Notes Importantes
 
-### Index GiST
+### Activation PostGIS et Index GiST
 
-Les index GiST PostGIS sont créés automatiquement au démarrage de l'application par `PostGisIndexInitializer`. Ce composant :
+L'extension PostGIS est activée automatiquement au démarrage par `PostGisExtensionInitializer` AVANT qu'Hibernate ne crée le schéma. 
+Ce composant vérifie si PostGIS est déjà activé et l'active si nécessaire.
+
+Les index GiST PostGIS sont ensuite créés automatiquement par `PostGisIndexInitializer`. Ce composant :
 
 - S'exécute après l'initialisation de Hibernate
 - Vérifie si les index existent déjà (idempotent)

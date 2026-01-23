@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
  * 
  * Ce composant s'exécute après l'initialisation de Hibernate pour s'assurer
  * que les tables existent avant de créer les index.
+ * 
+ * NOTE: L'extension PostGIS doit être activée AVANT ce composant par
+ * {@link PostGisExtensionInitializer}.
  */
 @Component
 @Slf4j
