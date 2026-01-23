@@ -59,7 +59,7 @@ services:
       SPRING_JPA_PROPERTIES_HIBERNATE_JDBC_TIME_ZONE: ${SPRING_JPA_PROPERTIES_HIBERNATE_JDBC_TIME_ZONE}
       
       # Spring Profile Configuration
-      # Utilise 'dev' par défaut si SPRING_PROFILES_ACTIVE n'est pas défini
+      # Utilise 'dev' par dÃ©faut si SPRING_PROFILES_ACTIVE n'est pas dÃ©fini
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
       
       # Server Configuration
@@ -120,6 +120,11 @@ services:
     networks:
       - gettgi-network
     restart: unless-stopped
+    logging:
+      driver: "local"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   postgres_data:
